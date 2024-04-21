@@ -97,7 +97,7 @@ function main() {
 	//loading texture
 	const loader = new THREE.TextureLoader();
 
-	const texture = loader.load( './public/assets/candy.avif' );
+	const texture = loader.load( './assets/candy.avif' );
 	texture.colorSpace = THREE.SRGBColorSpace;
 
 	const material = new THREE.MeshBasicMaterial( {
