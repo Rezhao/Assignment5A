@@ -151,12 +151,12 @@ function main() {
 	//loading 3d model with texture/materials
 	{
 		const mtlLoader = new MTLLoader();
-		mtlLoader.load( './public/assets/castle.mtl', ( mtl ) => {
+		mtlLoader.load( './assets/castle.mtl', ( mtl ) => {
 
 			mtl.preload();
 			const objLoader = new OBJLoader();
 			objLoader.setMaterials( mtl );
-			objLoader.load( './public/assets/castle.obj', ( root ) => {
+			objLoader.load( './assets/castle.obj', ( root ) => {
 				scene.add( root );
 			} );
 
