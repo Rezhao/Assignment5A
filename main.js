@@ -97,7 +97,7 @@ function main() {
 	//loading texture
 	const loader = new THREE.TextureLoader();
 
-	const texture = loader.load( './assets/candy.avif' );
+	const texture = loader.load( 'https://github.com/Rezhao/Assignment5A/blob/master/assets/candy.avif' );
 	texture.colorSpace = THREE.SRGBColorSpace;
 
 	const material = new THREE.MeshBasicMaterial( {
@@ -151,12 +151,12 @@ function main() {
 	//loading 3d model with texture/materials
 	{
 		const mtlLoader = new MTLLoader();
-		mtlLoader.load( './assets/castle.mtl', ( mtl ) => {
+		mtlLoader.load( 'https://github.com/Rezhao/Assignment5A/blob/master/assets/castle.mtl', ( mtl ) => {
 
 			mtl.preload();
 			const objLoader = new OBJLoader();
 			objLoader.setMaterials( mtl );
-			objLoader.load( './assets/castle.obj', ( root ) => {
+			objLoader.load( 'https://github.com/Rezhao/Assignment5A/blob/master/assets/castle.obj', ( root ) => {
 
 				scene.add( root );
 
