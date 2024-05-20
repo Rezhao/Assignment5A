@@ -1,15 +1,22 @@
 <html>
   <head>
     <title>Assignment5A</title>
-    <script type="module" crossorigin src="/Assignment5A/assets/index-CfTwhh38.js"></script>
+    <script  type="importmap">{
+      "imports": {
+        "three": "https://threejs.org/build/three.module.js",
+        "three/addons/": "https://threejs.org/examples/jsm/"
+      }
+    }</script>
+    <script type="module" crossorigin src="/Assignment5A/assets/index-bSPRP2lG.js"></script>
   </head>
   <body>
-    <p>Notes to Grader: I implemented a heart, triangles, cubes, and a sphere. One of the cubes
-      is textured with a candy image and three of the shapes are animated (a triangle and two cubes).
-      There is also a 3D model of a castle in the middle, as well as a directional and hemisphere 
-      light source and camera with perspective projection. Orbit controls are implemented as well 
-      so you can click and zoom in on the piece. 
+    <p>Notes to Grader: Can rotate camera by clicking and dragging and can move camera position
+      by right clicking and dragging (implemented using orbit controls). I have 3 different light 
+      sources: hemisphere, directional, and spotlight. I have a skybox that uses a 360 degree view
+      sky background. I also have at least 20 primary shapes implemented through the trees and shapes 
+      floating around. 
     </p>
     <canvas id="c"></canvas>
+
   </body>
 </html>
