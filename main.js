@@ -54,8 +54,8 @@ function main() {
 		const planeSize = 40;
 
 		const loader = new THREE.TextureLoader();
-		const texture = loader.load( './public/assets/grass.jpg' );
-		// const texture = loader.load( './assets/grass.jpg' );
+		const texture = loader.load( './assets/grass.jpg' );
+		// const texture = loader.load( './public/assets/grass.jpg');
 		texture.colorSpace = THREE.SRGBColorSpace;
 		texture.wrapS = THREE.RepeatWrapping;
 		texture.wrapT = THREE.RepeatWrapping;
@@ -111,8 +111,8 @@ function main() {
 
 	{
 		const loader = new FontLoader();
-		// './assets/helvetiker_regular.typeface.json'
-		loader.load('./public/assets/helvetiker_regular.typeface.json' , (font) => {
+		// './public/assets/helvetiker_regular.typeface.json'
+		loader.load('./assets/helvetiker_regular.typeface.json' , (font) => {
 			const text = 'Welcome!';  
 
 			const geometry = new TextGeometry(text, {
@@ -171,8 +171,8 @@ function main() {
 	//loading texture
 	const loader = new THREE.TextureLoader();
 
-	// './assets/candy.avif'
-	const texture = loader.load( './public/assets/candy.avif' );
+	// './public/assets/candy.avif'
+	const texture = loader.load( './assets/candy.avif' );
 	texture.colorSpace = THREE.SRGBColorSpace;
 
 	const material = new THREE.MeshBasicMaterial( {
@@ -347,8 +347,8 @@ function main() {
 	//loading texture
 	const loader = new THREE.TextureLoader();
 
-	// './assets/candy.avif'
-	const texture = loader.load( './public/assets/wood.jpg' );
+	// './public/assets/candy.avif'
+	const texture = loader.load( './assets/wood.jpg' );
 	texture.colorSpace = THREE.SRGBColorSpace;
 
 	const material = new THREE.MeshBasicMaterial( {
@@ -426,7 +426,7 @@ function main() {
 		const loader = new THREE.TextureLoader();
 		// './public/assets/sky10.jpeg' './assets/sky10.jpeg'
 		const texture = loader.load(
-			'./public/assets/sky10.jpeg' ,
+			'./assets/sky10.jpeg' ,
 			() => {
 
 				texture.mapping = THREE.EquirectangularReflectionMapping;
@@ -440,13 +440,13 @@ function main() {
 	{
 		const mtlLoader = new MTLLoader();
 		// './public/assets/waterfall.mtl' './assets/waterfall.mtl'
-		mtlLoader.load( './public/assets/waterfall.mtl', ( mtl ) => {
+		mtlLoader.load( './assets/waterfall.mtl', ( mtl ) => {
 
 			mtl.preload();
 			const objLoader = new OBJLoader();
 			objLoader.setMaterials( mtl );
 			// '/public/assets/waterfall.obj' './assets/waterfall.obj'
-			objLoader.load( '/public/assets/waterfall.obj', ( root ) => {
+			objLoader.load( '/assets/waterfall.obj', ( root ) => {
 				root.rotation.y = THREE.MathUtils.degToRad(-90);
 				root.scale.set(6,6,6);
 				root.position.set(0,2.15,0);
