@@ -22,12 +22,12 @@ function main() {
 	  });
 
 	//adding perspective camera
-	const fov = 50; //field of view (in degrees)
+	const fov = 80; //field of view (in degrees)
 	const aspect = window.innerWidth / window.innerHeight;
 	const near = 0.1;
 	const far = 1000;
 	const camera = new THREE.PerspectiveCamera( fov, aspect, near, far );
-	camera.position.set( 0, 10, 30 );
+	camera.position.set( 0, 12, 30 );
 
 	//adding orbit controls
 	const controls = new OrbitControls( camera, canvas );
@@ -38,14 +38,24 @@ function main() {
 	const scene = new THREE.Scene();
 	// scene.background = new THREE.Color( 'black' );
 
+	{
+
+		const near = 3;
+		const far = 90;
+		const color = 0x99ff9b;
+		scene.fog = new THREE.Fog( color, near, far );
+		scene.background = new THREE.Color( color );
+
+	}
+
 	//adding platform
 	{
 
 		const planeSize = 40;
 
 		const loader = new THREE.TextureLoader();
-		// const texture = loader.load( './public/assets/grass.jpg' );
-		const texture = loader.load( './assets/grass.jpg' );
+		const texture = loader.load( './public/assets/grass.jpg' );
+		// const texture = loader.load( './assets/grass.jpg' );
 		texture.colorSpace = THREE.SRGBColorSpace;
 		texture.wrapS = THREE.RepeatWrapping;
 		texture.wrapT = THREE.RepeatWrapping;
@@ -101,9 +111,9 @@ function main() {
 
 	{
 		const loader = new FontLoader();
-		// './public/assets/helvetiker_regular.typeface.json'
-		loader.load('./assets/helvetiker_regular.typeface.json', (font) => {
-			const text = 'Hello!';  
+		// './assets/helvetiker_regular.typeface.json'
+		loader.load('./public/assets/helvetiker_regular.typeface.json' , (font) => {
+			const text = 'Welcome!';  
 
 			const geometry = new TextGeometry(text, {
 				font: font,
@@ -118,7 +128,7 @@ function main() {
 			geometry.center();
 			const material = new THREE.MeshNormalMaterial();
 			const mesh = new THREE.Mesh(geometry, material);
-			mesh.position.y = 12;
+			mesh.position.set(0, 2, 18);
 			scene.add(mesh);
 		});
 	}
@@ -148,21 +158,21 @@ function main() {
 	//creating triangle
 	const triRot = new THREE.TetrahedronGeometry(2);
 	//creating sphere
-	const sphereShape = new THREE.SphereGeometry( 2, 32, 16 ); 
+	const sphereShape = new THREE.SphereGeometry( 2, 32, 16 ); //radius, widthSegments, heightSegments
 
 	//making shapes
-	const shapes = [
-		makeInstance( geometry, 0x4ef5e1, 8, 8, 0 ),
-		makeInstance( triRot, 0xd0a1ff, 9, 11, 0),
-		makeInstance( sphereShape, 0xf2e422, 7, 0, 0 ),
-	];
+	// const shapes = [
+	// 	makeInstance( geometry, 0x4ef5e1, 8, 8, 0 ),
+	// 	makeInstance( triRot, 0xd0a1ff, 9, 11, 0),
+	// 	makeInstance( sphereShape, 0xf2e422, 7, 0, 0 ),
+	// ];
 
 	//creating textured cube
 	//loading texture
 	const loader = new THREE.TextureLoader();
 
-	// './public/assets/candy.avif'
-	const texture = loader.load( './assets/candy.avif' );
+	// './assets/candy.avif'
+	const texture = loader.load( './public/assets/candy.avif' );
 	texture.colorSpace = THREE.SRGBColorSpace;
 
 	const material = new THREE.MeshBasicMaterial( {
@@ -174,8 +184,8 @@ function main() {
 	cube.position.x = 6;
 	cube.position.y = 10;
 	cube.scale.set(1.5, 1.5, 1.5);
-	scene.add( cube );
-	shapes.push(cube);
+	// scene.add( cube );
+	// shapes.push(cube);
 
 	//creating heart shape
 	const shape = new THREE.Shape();
@@ -202,7 +212,15 @@ function main() {
 	const heartMat = new THREE.MeshPhongMaterial( { color: 0xff9cd6 } );
 	const heartMesh = new THREE.Mesh( heart, heartMat );
 	heartMesh.scale.set(0.2, -0.2, 0.2);
+  heartMesh.position.set(-4, -6, 18);
+  // mesh.position.set(0, 2, 18);
 	scene.add( heartMesh );
+
+  const heartMesh2 = new THREE.Mesh( heart, heartMat );
+	heartMesh2.scale.set(0.2, -0.2, 0.2);
+  heartMesh2.position.set(19, -6, 18);
+  // mesh.position.set(0, 2, 18);
+	scene.add( heartMesh2 );
 
 	//creating triangle 
 	const triShape = new THREE.TetrahedronGeometry(3);
@@ -210,7 +228,7 @@ function main() {
 	const triangle = new THREE.Mesh( triShape, triMat );
 	triangle.position.x = -7;
 	triangle.position.y = 0;
-	scene.add( triangle );
+	// scene.add( triangle );
 
 
   //creating polyhedron
@@ -233,10 +251,6 @@ function main() {
     makeInstance(branch, 0x52413a, x, 2, z);
   }
 
-  drawRoundTree(-15, -15);
-  drawRoundTree(-12, -15);
-  drawRoundTree(-16, -13);
-
   function drawPineTree(x, z) {
     const tree1 = new THREE.ConeGeometry( 1.5, 3, 32 ); //radius, height, radialSegments
     makeInstance(tree1, 0x4d9e53, x, 5.5, z);
@@ -248,9 +262,26 @@ function main() {
     makeInstance(branch, 0x52413a, x, 2, z);
   }
 
+  drawRoundTree(-15, -15);
+  drawRoundTree(-12, -15);
+  drawRoundTree(-16, -13);
+
+  drawRoundTree(-10, -12);
+  drawPineTree(-12, -8);
+  drawPineTree(-17, -3);
+  drawRoundTree(-12, -10);
+  drawRoundTree(-6, -16);
+
+  drawPineTree(-3, -13);
+  drawPineTree(-7, -11);
+
   drawPineTree(-15, -5);
   drawPineTree(-17, -3);
   drawPineTree(-12, -3);
+
+  drawPineTree(18, -15);
+  drawPineTree(16, -18);
+  drawPineTree(10, -10);
 
   drawPineTree(5, -15);
   drawPineTree(7, -17);
@@ -260,13 +291,142 @@ function main() {
   drawRoundTree(15, -10);
   drawPineTree(17, -9);
   drawPineTree(14, -5);
+  drawRoundTree(15, -1);
+  drawRoundTree(10, -1);
+
+  drawPineTree(-12, 5);
+  drawPineTree(-17, 3);
+  drawRoundTree(-8, -2);
+  drawPineTree(-17, 8);
+
+  drawRoundTree(13, 10);
+  drawPineTree(17, 9);
+  drawPineTree(14, 5);
+
+  drawRoundTree(11, 14);
+  drawPineTree(17, 15);
+
+  drawRoundTree(-11, 12);
+  drawPineTree(-17, 15);
+
+  function drawRainbow() {
+	//rainbow arc
+	const rainbowColors = [0xff0835, 0xfc903d, 0xfff53b, 0x6dfc65, 0x65c0fc, 0xa274f7];
+	const innerRadius = 9;
+	const outerRadius = 10;
+	for ( var i = 0; i < 6; i++) {
+		const arc = new THREE.RingGeometry( innerRadius - i, outerRadius - i, 25, 3, 0, Math.PI );
+		const material = new THREE.MeshPhongMaterial( { color: rainbowColors[i], side: THREE.DoubleSide } );
+		const mesh = new THREE.Mesh( arc, material ); 
+		scene.add( mesh );
+		mesh.position.set(0, 10, -0.01);
+	}
+
+	//clouds
+	for (var i = 0; i < 4; i++) {
+		const geometry = new THREE.CircleGeometry( 2, 32 ); 
+		const material = new THREE.MeshPhongMaterial( { color: 0xffffff, side: THREE.DoubleSide  } ); 
+		const circle1 = new THREE.Mesh( geometry, material ); 
+		const circle2 = new THREE.Mesh( geometry, material ); 
+		const circle3 = new THREE.Mesh( geometry, material ); 
+		const circle4 = new THREE.Mesh( geometry, material ); 
+		scene.add( circle1 );
+		circle1.position.set(-4-i*2, 10, 0);
+		scene.add( circle2 );
+		circle2.position.set(4+i*2, 10, 0);
+		scene.add( circle3 );
+		circle3.position.set(-4-i*2, 10, -0.02);
+		scene.add( circle4 );
+		circle4.position.set(4+i*2, 10, -0.02);
+	}
+  }
+  drawRainbow();
+
+  function drawBench() {
+	//creating textured cube
+	//loading texture
+	const loader = new THREE.TextureLoader();
+
+	// './assets/candy.avif'
+	const texture = loader.load( './public/assets/wood.jpg' );
+	texture.colorSpace = THREE.SRGBColorSpace;
+
+	const material = new THREE.MeshBasicMaterial( {
+		map: texture
+	} );
+
+	//setting textured cube details
+	const bench = new THREE.Mesh( geometry, material );
+	bench.position.set(0, 1, 8);
+	// bench.rotation.y = 0.5;
+	bench.scale.set(5, 0.5, 1.5);
+	scene.add( bench );
+
+	const leg1 = new THREE.Mesh( geometry, material );
+	leg1.position.set(-2.75, 0.65, 8);
+	// leg1.rotation.y = 0.5;
+	leg1.scale.set(0.5, 1.25, 1.5);
+	scene.add( leg1 );
+
+	const leg2 = new THREE.Mesh( geometry, material );
+	leg2.position.set(2.75, 0.65, 8);
+	// leg2.rotation.y = 0.5;
+	leg2.scale.set(0.5, 1.25, 1.5);
+	scene.add( leg2 );
+  }
+
+  drawBench();
+
+
+  //creating cube
+	function makeSparkle( geometry, color, x, y, z, scale) {
+
+		const material = new THREE.MeshPhongMaterial( { color } ); //must use to be affected by light
+
+		const cube = new THREE.Mesh( geometry, material );
+		scene.add( cube );
+
+		cube.position.set(x, y, z);
+    cube.scale.set(scale[0], scale[1], scale[2]);
+
+		return cube;
+
+	}
+
+  //making shapes
+	const sparkleSpin = [];
+  function drawSparkles() {
+    const heart = new THREE.ExtrudeGeometry(shape, extrudeSettings);
+    const cube = new THREE.BoxGeometry(1, 1, 1); //boxWidth, boxHeight, boxDepth
+    const sphereShape = new THREE.SphereGeometry( 0.5, 32, 16 ); //radius, widthSegments, heightSegments
+    const triRot = new THREE.TetrahedronGeometry(2); //radius
+    const donut = new THREE.TorusGeometry(2, 1, 20, 50); //radius, tubeRadius, radialSegments, tubularSegments
+    const dodec = new THREE.DodecahedronGeometry(2);
+
+    const sparkles = [heart, cube, sphereShape, triRot, donut, dodec];
+    const scale = [[0.1, -0.1, 0.1], [0.2, 0.2, 0.2], [0.2, 0.2, 0.2], [0.2, 0.2, 0.2], [0.2, 0.2, 0.2], [0.2, 0.2, 0.2]];
+
+    const colors = [0xf22275, 0xffa64d, 0xfcee4c, 0x5dfc5d, 0x75a3ff, 0xa66bff];
+
+    for (var i = 0; i < 50; i++) {
+      var n = Math.floor(Math.random() * 6);
+      var c = Math.floor(Math.random() * 6);
+      var x = Math.floor(Math.random() * 36) - 18;
+      var y = Math.floor(Math.random() * 19) + 2;
+      var z = Math.floor(Math.random() * 36) - 18;
+      const temp = makeSparkle(sparkles[n], colors[c], x, y, z, scale[n]);
+      sparkleSpin.push(temp);
+    }
+  }
+  drawSparkles();
+
 	
 	//adding skybox
 	{
 		const loader = new THREE.TextureLoader();
-		// './public/assets/sky10.jpeg'
+		// './public/assets/sky10.jpeg' './assets/sky10.jpeg'
 		const texture = loader.load(
-			'./assets/sky10.jpeg',
+			'./public/assets/sky10.jpeg' ,
 			() => {
 
 				texture.mapping = THREE.EquirectangularReflectionMapping;
@@ -279,14 +439,14 @@ function main() {
 	//loading 3d model with texture/materials
 	{
 		const mtlLoader = new MTLLoader();
-		// './public/assets/waterfall.mtl'
-		mtlLoader.load( './assets/waterfall.mtl', ( mtl ) => {
+		// './public/assets/waterfall.mtl' './assets/waterfall.mtl'
+		mtlLoader.load( './public/assets/waterfall.mtl', ( mtl ) => {
 
 			mtl.preload();
 			const objLoader = new OBJLoader();
 			objLoader.setMaterials( mtl );
-			// '/public/assets/waterfall.obj'
-			objLoader.load( './assets/waterfall.obj', ( root ) => {
+			// '/public/assets/waterfall.obj' './assets/waterfall.obj'
+			objLoader.load( '/public/assets/waterfall.obj', ( root ) => {
 				root.rotation.y = THREE.MathUtils.degToRad(-90);
 				root.scale.set(6,6,6);
 				root.position.set(0,2.15,0);
@@ -301,14 +461,20 @@ function main() {
 	function render( time ) {
 
 		time *= 0.001; // convert time to seconds
-		shapes.forEach( ( cube, ndx ) => {
+		// shapes.forEach( ( cube, ndx ) => {
 
-			const speed = 1 + ndx * .1;
+		// 	const speed = 1 + ndx * .1;
+		// 	const rot = time * speed;
+		// 	cube.rotation.x = rot;
+		// 	cube.rotation.y = rot;
+
+		// });
+    sparkleSpin.forEach((cube, ndx) => {
+      const speed = 1 + ndx * .1;
 			const rot = time * speed;
-			cube.rotation.x = rot;
+			// cube.rotation.x = rot;
 			cube.rotation.y = rot;
-
-		} );
+    });
 		renderer.render( scene, camera );
 		requestAnimationFrame( render );
 	}
