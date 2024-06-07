@@ -446,7 +446,7 @@ function main() {
 			const objLoader = new OBJLoader();
 			objLoader.setMaterials( mtl );
 			// '/public/assets/waterfall.obj' './assets/waterfall.obj'
-			objLoader.load( '/assets/waterfall.obj', ( root ) => {
+			objLoader.load( './assets/waterfall.obj', ( root ) => {
 				root.rotation.y = THREE.MathUtils.degToRad(-90);
 				root.scale.set(6,6,6);
 				root.position.set(0,2.15,0);
